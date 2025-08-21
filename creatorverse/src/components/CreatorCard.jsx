@@ -1,38 +1,49 @@
 // src/components/CreatorCard.jsx
 import { Link } from 'react-router-dom'
+import { supabase } from '../client';
+import { NavLink } from 'react-router-dom';
 
-export default function CreatorCard({ creator }) {
+ 
+
+export default function CreatorCard({ creator, onDelete }) {
     const { id, name, url, description, imageURL } = creator;
 
     return (
-        <article className="card">
+        <article className="bg-slate-400 rounded-xl shadow-lg p-6 flex flex-col items-center transition shadow-lg hover:bg-slate-500 relative">
             {imageURL && (
                 <img
                     src={imageURL}
                     alt={name}
-                    style={{ width: '100%', borderRadius: 'var(--pico-border-radius)', objectFit: 'cover', maxHeight: 220 }}
+                    className="w-full h-48 object-cover rounded-lg mb-4"
                 />
             )}
-            <h3><a href={url} target="_blank" rel="noreferrer">{name}</a></h3>
-            <p>{description}</p>
-            <footer style={{ display: 'flex', gap: 8 }}>
+            <h3 className="text-xl font-bold mb-2 text-blue-900 text-center">
+                <a href={url} target="_blank" rel="noreferrer" className="hover:underline">{name}</a>
+            </h3>
+            <p className="mb-4 text-gray-700 text-center">{description}</p>
+            <footer className="flex gap-3 w-full justify-center mt-auto">
                 <Link
-                    to={`/creators/${id}`}
-                    className="secondary"
+                    to={`/view/${id}`}
+                    className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg transition"
                     role="button"
-                    style={{ backgroundColor: '#4f46e5', color: '#fff', border: 'none' }}
                 >
                     View
                 </Link>
                 <Link
-                    to={`/creators/${id}/edit`}
-                    className="contrast"
+                    to={`/edit/${id}`}
+                    className="bg-indigo-500 hover:bg-indigo-600 text-white font-semibold py-2 px-4 rounded-lg transition"
                     role="button"
-                    style={{ backgroundColor: '#4f46e5', color: '#fff', border: 'none' }}
                 >
                     Edit
                 </Link>
+                <button
+                    onClick={() => onDelete(id)}
+                    className="bg-red-500 hover:bg-indigo-600 text-white font-semibold py-2 px-4 rounded-lg transition"
+                >
+                    Delete
+                </button>
             </footer>
+
         </article>
     );
 }

@@ -23,7 +23,7 @@ export default function ViewCreator() {
   if (!creator) return <p>Loading…</p>
 
   return (
-    <main className="flex flex-col items-center justify-center min-h-screen bg-slate-100 p-4">
+    <main className="flex flex-col items-center justify-center min-h-screen p-4">
       <article className="bg-white shadow rounded-lg p-8 w-full max-w-lg flex flex-col items-center">
         {creator.imageURL && (
           <img
